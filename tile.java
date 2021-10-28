@@ -6,9 +6,12 @@ public class tile implements ActionListener{
     private JButton button;
     private int location;
     private boolean bomb;
+    private int surroundingBombs;
+    private JFrame board;
 
 
-    public tile(JFrame board, int tilenum){
+    public tile(JFrame b, int tilenum){
+        this.board = b;
         this.button = new JButton();
         this.location = tilenum;
         this.bomb = false;
@@ -33,6 +36,7 @@ public class tile implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent e){
-        
+        surroundingBombs = board.checkNeighbours(location);
+        button.setText(Integer.toString(surroundingBombs));
     }
 }
