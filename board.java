@@ -17,7 +17,7 @@ public class board extends JFrame {
             int int_random = rand.nextInt(upperbound);
             tiles[int_random].addBomb();
         }
-        this.setSize(800,800);
+        this.setSize(1920, 1080);
         this.setLayout(layout);
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -25,16 +25,42 @@ public class board extends JFrame {
 
     public int checkNeighbours(int tilenum){
         int i = 0;
-
-        for (int k = (tilenum - 11); k < (tilenum + 10); k++){
-            if (k != tilenum){
-                if (tiles[k].checkBomb() == true){
-                    i++;
-                }
-            }
+        if(tilenum % 10 == 0 || tilenum == 0){
+            if (checkTile(tilenum-10) == true) i++; // top
+            if (checkTile(tilenum-9) == true) i++; // top right
+            if (checkTile(tilenum+1) == true) i++; // right
+            if (checkTile(tilenum+10) == true) i++; // bot
+            if (checkTile(tilenum+11) == true) i++; // bot right
+            return i;
         }
 
-        return i;
+        else if ((tilenum+1) % 10 == 0){
+            if (checkTile(tilenum-11) == true) i++; // top left
+            if (checkTile(tilenum-10) == true) i++; // top
+            if (checkTile(tilenum-1) == true) i++; // left
+            if (checkTile(tilenum+9) == true) i++; // bot left
+            if (checkTile(tilenum+10) == true) i++; // bot
+            return i;
+        }
 
+        if (checkTile(tilenum-11) == true) i++; // top left
+        if (checkTile(tilenum-10) == true) i++; // top
+        if (checkTile(tilenum-9) == true) i++; // top right
+        if (checkTile(tilenum-1) == true) i++; // left
+        if (checkTile(tilenum+1) == true) i++; // right
+        if (checkTile(tilenum+9) == true) i++; // bot left
+        if (checkTile(tilenum+10) == true) i++; // bot
+        if (checkTile(tilenum+11) == true) i++; // bot right
+        return i;
+    }
+
+    public boolean checkTile(int tilenum){
+        if (tilenum < 100 && tilenum >= 0){
+            if (tiles[tilenum].checkBomb() == true){
+                return true;
+            }
+            else return false;
+        }
+        else return false;
     }
 }
