@@ -79,7 +79,7 @@ public abstract class GameSquare extends JButton
 	 */	
 	public abstract void rightClicked();
 
-    public abstract int checkNeighbours();
+    public abstract int checkNeighbours(int x, int y);
 
 	/**
 	 * A method that is invoked when a reset() method is called on GameBoard.

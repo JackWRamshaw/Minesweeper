@@ -26,6 +26,8 @@ public class tile extends GameSquare
     public void leftClicked()
     {
         if (flag) return;
+        if (isOpen) return;
+        
         this.isOpen = true;
         if (getBomb())
         {
@@ -34,12 +36,19 @@ public class tile extends GameSquare
         }
         else
         {
+            open();
+        }
+    }
+
+    public void open()
+    {
         surroundingBombs = checkNeighbours(getXLocation(), getYLocation());
         this.setText(Integer.toString(surroundingBombs));
         switch (surroundingBombs)
         {
             case 0:
-            this.setBackground(Color.black);
+                this.setBackground(Color.black);
+                floodFill(getXLocation(), getYLocation());
                 break;
             case 1:
                 this.setBackground(Color.blue);
@@ -65,7 +74,6 @@ public class tile extends GameSquare
             case 8:
                 this.setBackground(Color.orange);
                 break;
-            }
         }
     }
 
@@ -83,14 +91,14 @@ public class tile extends GameSquare
 
     public int checkNeighbours(int x, int y)
     {
+        System.out.println("Check Neighbours");
         int i = 0;
         
         for (int k = x-1; k < x+2; k++)
         {
-            if (k < 0) break;
             for (int n = y-1; n < y+2; n++)
             {
-                if (n < 0) break;
+                if (board.getSquareAt(k, n) == null) break;
                 if (board.getSquareAt(k, n).getBomb())
                 {
                     i++;
@@ -102,7 +110,7 @@ public class tile extends GameSquare
 
     public void floodFill(int x, int y)
     {
-        if (board.getSquareAt(x, y).checkNeighbours() == 0)
+        if (board.getSquareAt(x, y).checkNeighbours(x, y) == 0)
         {
             floodFill(x+1, y);
             floodFill(x-1, y);
@@ -111,6 +119,7 @@ public class tile extends GameSquare
         } else {
             return;
         }
+        
     }
 
     public void reset(int n)
