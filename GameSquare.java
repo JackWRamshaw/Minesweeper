@@ -32,15 +32,6 @@ public abstract class GameSquare extends JButton
 
 	}
 
-	/**
-	 * Changes the image displayed by this square to match the status of the
-	 * wallLeft, wallRight, WallUp, WallDown and highlighted variables.
-	 */	
-	private void updateImage()
-	{
-
-	}
-
     /**
      * Determines the location of this square on the board
      * @return the x coordinate of this square.
@@ -87,6 +78,8 @@ public abstract class GameSquare extends JButton
 	 * 
 	 */	
 	public abstract void rightClicked();
+
+    public abstract int checkNeighbours();
 
 	/**
 	 * A method that is invoked when a reset() method is called on GameBoard.

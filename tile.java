@@ -100,6 +100,19 @@ public class tile extends GameSquare
         return i;
     }
 
+    public void floodFill(int x, int y)
+    {
+        if (board.getSquareAt(x, y).checkNeighbours() == 0)
+        {
+            floodFill(x+1, y);
+            floodFill(x-1, y);
+            floodFill(x, y+1);
+            floodFill(x, y-1);
+        } else {
+            return;
+        }
+    }
+
     public void reset(int n)
     {
 
